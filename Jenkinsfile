@@ -1,7 +1,8 @@
 #!/usr/bin/env groovy
 import groovy.json.*
 
-def workspace = "$WORKSPACE".replace('\\', '/')
+//def workspace = "$WORKSPACE".replace('\\', '/')
+def workspace = env.WORKSPACE
 def parametersFilePath = "$workspace/Parameters.json"
 def shopAccountsFilePath = "$workspace/users.csv"
 def searchTermsFilePath = "$workspace/searchTerms.csv"
