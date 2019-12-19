@@ -30,7 +30,6 @@ pipeline {
     
     stages {
         stage ('Save configuration') {
-            agent { label 'master' }
             steps {
                 script {
                     if (params){
