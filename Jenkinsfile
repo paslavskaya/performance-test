@@ -14,7 +14,7 @@ def testsPath = "$JENKINS_HOME/workspace/Performance test"
 def configurationSchemaFilePath = "$testsPath/ConfigurationSchema.groovy"
 
 pipeline {
-    agent { node { label 'master' } } 
+    agent none
     options {
         buildDiscarder(logRotator(numToKeepStr: '20'))
         disableConcurrentBuilds()
@@ -30,6 +30,7 @@ pipeline {
     
     stages {
         stage ('Copy test script') {
+            agent { label 'master' }
             steps{
                 script {
                     fileOperations([folderCopyOperation(destinationFolderPath: '', sourceFolderPath: "$testsPath")])
@@ -37,6 +38,7 @@ pipeline {
             }
         }
         stage ('Save configuration') {
+            agent { label 'master' }
             steps {
                 script {
                     if (params){
