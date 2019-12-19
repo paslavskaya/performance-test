@@ -39,7 +39,8 @@ pipeline {
                         saveParameters("$parametersFilePath")
                         saveTestDataIntoCSV("$parametersFilePath", "$testDataCSVFilePath", "$saveTestDataScriptPath")
                         saveShopAccounts("$shopAccountsFilePath")       
-                        saveSearchTerms("$searchTermsFilePath")                            
+                        saveSearchTerms("$searchTermsFilePath")    
+                        archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,results/**'                        
                     }                     
                 }  
                 stash includes: '**', name: 'everything'                       
@@ -65,15 +66,6 @@ pipeline {
                         sh 'jmeter -n -t DemoSana.jmx -JPath=${workspace} -l test_results.jtl -j test_results.log'
                     }
                 } 
-            }  
-        }
-
-        stage ('Archive results') {
-            agent { label 'master' }
-            steps {
-                script {
-                   archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,results/**'  
-                }
             }  
         }
     }
