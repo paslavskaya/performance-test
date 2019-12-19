@@ -12,7 +12,7 @@ def testsPath = "$JENKINS_HOME/workspace/Performance test"
 def configurationSchemaFilePath = "$testsPath/ConfigurationSchema.groovy"
 
 pipeline {
-    agent none
+    agent { node { label 'master' } } 
     options {
         buildDiscarder(logRotator(numToKeepStr: '20'))
         disableConcurrentBuilds()
