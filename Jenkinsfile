@@ -28,6 +28,13 @@ pipeline {
     }
     
     stages {
+        stage ('Copy test script') {
+            steps{
+                script {
+                    fileOperations([folderCopyOperation(destinationFolderPath: '', sourceFolderPath: "$testsPath")])
+                }
+            }
+        }
         stage ('Save configuration') {
             steps {
                 script {
