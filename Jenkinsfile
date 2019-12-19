@@ -14,7 +14,14 @@ def testsPath = "$JENKINS_HOME/workspace/Performance test"
 def configurationSchemaFilePath = "$testsPath/ConfigurationSchema.groovy"
 
 pipeline {
-    agent none
+    agent {
+        kubernetes {
+            label 'jnlp'
+            defaultContainer 'jnlp'
+            containerTemplate(name: 'jmeter', image: 'egaillardon/jmeter', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
+            containerTemplate(name: 'pluggin', image: 'egaillardon/jmeter-plugins', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
+        }
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '20'))
         disableConcurrentBuilds()
