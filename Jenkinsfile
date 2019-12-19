@@ -63,6 +63,7 @@ pipeline {
                 container('jmeter') {
                     container('pluggin'){
                         sh 'jmeter -n -t DemoSana.jmx -JPath=${workspace} -l test_results.jtl -j test_results.log'
+                        archiveArtifacts artifacts: 'test_results.log'
                     }
                 } 
             }  
