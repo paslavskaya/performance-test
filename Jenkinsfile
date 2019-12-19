@@ -39,7 +39,7 @@ pipeline {
                         saveTestDataIntoCSV("$parametersFilePath", "$testDataCSVFilePath", "$saveTestDataScriptPath")
                         saveShopAccounts("$shopAccountsFilePath")       
                         saveSearchTerms("$searchTermsFilePath")    
-                        archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,results/**'                        
+                        archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,Parameters.json,results/**'                        
                     }                     
                 }  
                 stash includes: '**', name: 'everything'                       
