@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 import groovy.json.*
+import hudson.model.*
 
 def workspace = pwd()
 def parametersFilePath = "$workspace/Parameters.json"
