@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     if (params){
-                        fileOperations([folderCopyOperation(destinationFolderPath: '', sourceFolderPath: "$testsPath")])
+                        fileOperations([folderCopyOperation(destinationFolderPath: "$workspace", sourceFolderPath: "$testsPath")])
 
                         saveParameters("$parametersFilePath")
                         saveTestDataIntoCSV("$parametersFilePath", "$testDataCSVFilePath", "$saveTestDataScriptPath")
