@@ -1,16 +1,15 @@
 #!/usr/bin/env groovy
 import groovy.json.*
 
-//def workspace = "$WORKSPACE".replace('\\', '/')
-def workspace = env.WORKSPACE
+def workspace = pwd()
 def parametersFilePath = "$workspace/Parameters.json"
 def shopAccountsFilePath = "$workspace/users.csv"
 def searchTermsFilePath = "$workspace/searchTerms.csv"
 def testDataCSVFilePath = "$workspace/TestData.csv"
 def saveTestDataScriptPath = "$workspace/SaveTestData.groovy"
 
-//def releasePath = "C:/Program Files (x86)/Jenkins/workspace/Release " + sanaVersion + "/Build/TestSuite"
-def configurationSchemaFilePath = "$workspace/ConfigurationSchema.groovy"
+def testsPath = "$JENKINS_HOME/workspace/Performance test"
+def configurationSchemaFilePath = "$testsPath/ConfigurationSchema.groovy"
 
 pipeline {
     agent none
