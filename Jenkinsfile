@@ -68,6 +68,22 @@ pipeline {
             }  
         }
     }
+    post{
+        always{
+            script{
+                def grafana_report = "http://13.95.69.163/d/ltaas/jmeter-metric-template?orgId=1&refresh=30s"
+                // get build start and end time
+                def start = currentBuild.getStartTimeInMillis();
+                def end = currentBuild.getDuration();
+                // replace time
+                grafana_report = String.format(grafana_report, start, end);
+                def link = "<a href='%s'>%s</a><br/>";
+                def sb = new StringBuilder();
+                sb.append(String.format(link, grafana_report, "Grafana Performance Result"));
+                currentBuild.setDescription(sb.toString());
+            }
+        }
+    }
 }
 
 def saveParameters(String parametersFilePath) {
