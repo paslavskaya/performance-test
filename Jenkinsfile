@@ -36,35 +36,34 @@ pipeline {
     }
     
     stages {
-        stage ('Copy test script') {
-            agent { label 'master' }
-            steps{
-                script {
-                    fileOperations([folderCopyOperation(destinationFolderPath: '', sourceFolderPath: "$testsPath")])
-                }
-            }
-        }
         stage ('Save configuration') {
             agent { label 'master' }
             steps {
                 script {
                     if (params){
+                        fileOperations([folderCopyOperation(destinationFolderPath: '', sourceFolderPath: "$testsPath")])
+
                         saveParameters("$parametersFilePath")
                         saveTestDataIntoCSV("$parametersFilePath", "$testDataCSVFilePath", "$saveTestDataScriptPath")
                         saveShopAccounts("$shopAccountsFilePath")       
                         saveSearchTerms("$searchTermsFilePath")                            
                     }                     
-                }                            
+                }  
+                stash includes: '**', name: 'everything'                       
             }  
         }    
 
         stage ('Run tests') {
             steps {
-                script {
-                    def params = getParametersJsonConfig("$parametersFilePath")
-                    bat label: '', script: '''cd jmeter/bin
-                    jmeter -n -t "%WORKSPACE%/DemoSana.jmx" -JPath="%WORKSPACE%" -l test_results.jtl -j "%WORKSPACE%/test_results.log"'''
+                container('jnlp'){
+                   unstash 'everything'
                 }
+
+                container('jmeter') {
+                    container('pluggin'){
+                        sh 'jmeter -n -t DemoSana.jmx -JPath=${workspace} -l test_results.jtl -j test_results.log'
+                    }
+                } 
             }  
         }
 
