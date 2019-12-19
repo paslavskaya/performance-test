@@ -14,14 +14,7 @@ def testsPath = "$JENKINS_HOME/workspace/Performance test"
 def configurationSchemaFilePath = "$testsPath/ConfigurationSchema.groovy"
 
 pipeline {
-    agent {
-        kubernetes {
-            label 'jnlp'
-            defaultContainer 'jnlp'
-            containerTemplate(name: 'jmeter', image: 'egaillardon/jmeter', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
-            containerTemplate(name: 'pluggin', image: 'egaillardon/jmeter-plugins', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
-        }
-    }
+    agent none
     options {
         buildDiscarder(logRotator(numToKeepStr: '20'))
         disableConcurrentBuilds()
@@ -54,6 +47,14 @@ pipeline {
         }    
 
         stage ('Run tests') {
+            agent {
+                kubernetes {
+                    label 'jnlp'
+                    defaultContainer 'jnlp'
+                    containerTemplate(name: 'jmeter', image: 'egaillardon/jmeter', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
+                    containerTemplate(name: 'pluggin', image: 'egaillardon/jmeter-plugins', command: 'cat', ttyEnabled: true, alwaysPullImage: true)
+                }
+            }
             steps {
                 container('jnlp'){
                    unstash 'everything'
@@ -68,6 +69,7 @@ pipeline {
         }
 
         stage ('Archive results') {
+            agent { label 'master' }
             steps {
                 script {
                    archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,results/**'  
