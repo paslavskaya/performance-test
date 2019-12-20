@@ -57,12 +57,12 @@ pipeline {
             }
             steps {
                 container('jnlp'){
-                   unstash 'everything'
-                   def containerWorkspace = pwd()
+                   unstash 'everything'                   
                 }
 
                 container('jmeter') {
                     container('pluggin'){
+                        def containerWorkspace = pwd()
                         sh 'jmeter -n -t DemoSana.jmx -JPath="' + "${containerWorkspace}" + '" -l test_results.jtl -j test_results.log'
                         archiveArtifacts artifacts: 'test_results.log'
                     }
