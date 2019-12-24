@@ -108,6 +108,7 @@ def saveParameters(String parametersFilePath) {
     }       
     else
         jsonParametersConfig.login_enabled = "false"
+        jsonParametersConfig.login_usersCount = jsonParams.scenarios.a_login.guestsCount
 
     if (jsonParams.scenarios.b_plp.enabled)
     {

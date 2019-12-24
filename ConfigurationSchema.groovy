@@ -162,7 +162,16 @@ def jsonEditorOptions = Boon.fromJson(/{
               {
                 "title": "Anonymous",
                 "type": "object", 
-                "description": "Make sure your shop is Public."
+                "description": "Make sure your shop is Public.",
+                "properties": {
+                   "guestsCount": {
+                    "type": "string",
+                    "title": "Users count",
+                    "description": "Number of concurrent anonymous users",
+                    "propertyOrder": 0,
+                    "default": "${jsonConfig.login_usersCount}"
+                  }
+                }
               }
             ]
           },
