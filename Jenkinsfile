@@ -183,16 +183,19 @@ def saveTestDataIntoCSV(String parametersFilePath, String testDataCSVFilePath, S
 
 def saveShopAccounts(String shopAccountsFilePath) {
     echo 'Saving users.csv file with shop accounts'    
-    def jsonParams = readJSON text: "$params.Config"    
-    def arrayOfUsers = []
-    jsonParams.scenarios.a_login.users.split("\\r?\\n").each { line ->
-        def user = []
-        line.split(";").each{rec ->
-        user << rec 
-    }
-    arrayOfUsers << user
-    }
-    writeCSV file: "${shopAccountsFilePath}", records: arrayOfUsers, format: CSVFormat.EXCEL
+    def jsonParams = readJSON text: "$params.Config"   
+    if (jsonParams.scenarios.a_login.enabled) 
+    {
+        def arrayOfUsers = []
+        jsonParams.scenarios.a_login.users.split("\\r?\\n").each { line ->
+            def user = []
+            line.split(";").each{rec ->
+            user << rec 
+        }
+         arrayOfUsers << user
+        }
+        writeCSV file: "${shopAccountsFilePath}", records: arrayOfUsers, format: CSVFormat.EXCEL
+    }    
 }
 
 def saveSearchTerms(String searchTermsFilePath) { 
