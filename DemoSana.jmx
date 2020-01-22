@@ -1900,7 +1900,7 @@ vars.put(&quot;randomPLPAuthToken&quot;, randomPLPAuthToken);</stringProp>
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">${Path}\\ViewResults-${CurrentTime}.jtl</stringProp>
+        <stringProp name="filename">ViewResults-${CurrentTime}.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
       <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
@@ -1913,7 +1913,7 @@ vars.put(&quot;randomPLPAuthToken&quot;, randomPLPAuthToken);</stringProp>
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://127.0.0.1:8086/write?db=jmeter_demo</stringProp>
+              <stringProp name="Argument.value">http://127.0.0.1:8086/write?db=Jmeter</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
