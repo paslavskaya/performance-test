@@ -39,7 +39,7 @@ pipeline {
                         saveTestDataIntoCSV("$parametersFilePath", "$testDataCSVFilePath", "$saveTestDataScriptPath")
                         saveShopAccounts("$shopAccountsFilePath")       
                         saveSearchTerms("$searchTermsFilePath")    
-                        archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,Parameters.json,results/**'                        
+                        archiveArtifacts artifacts: 'TestData.csv,users.csv,searchTerms.csv,Parameters.json'                        
                     }                     
                 }  
                 stash includes: '**', name: 'everything'                       
@@ -65,7 +65,7 @@ pipeline {
                          script{
                             def containerWorkspace = pwd()
                             sh 'jmeter -n -t DemoSana.jmx -JPath="' + "${containerWorkspace}" + '" -l test_results.jtl -j test_results.log'
-                            archiveArtifacts artifacts: 'test_results.log'
+                            archiveArtifacts artifacts: 'test_results.log,results/**'
                         }
                     }
                 } 
