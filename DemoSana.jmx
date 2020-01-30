@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="Path" elementType="Argument">
             <stringProp name="Argument.name">Path</stringProp>
-            <stringProp name="Argument.value">${__P(Path, C:\Program Files (x86)\Jenkins\workspace\Performance2)}</stringProp>
+            <stringProp name="Argument.value">${__P(Path, C:\Program Files (x86)\Jenkins\workspace\Load test)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CurrentTime" elementType="Argument">
@@ -1913,17 +1913,17 @@ vars.put(&quot;randomPLPAuthToken&quot;, randomPLPAuthToken);</stringProp>
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://127.0.0.1:8086/write?db=Jmeter</stringProp>
+              <stringProp name="Argument.value">http://startersite-db-influxdb.default/write?db=jmeter</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
               <stringProp name="Argument.name">application</stringProp>
-              <stringProp name="Argument.value">GrafanaIntegration_DemoSana</stringProp>
+              <stringProp name="Argument.value">${__groovy(return props.get(&quot;JOB_NAME&quot;) +&quot; @ &quot;+props.get(&quot;BUILD_NUMBER&quot;)+&quot; @ &quot;+new Date(),)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="measurement" elementType="Argument">
               <stringProp name="Argument.name">measurement</stringProp>
-              <stringProp name="Argument.value">DemoSana</stringProp>
+              <stringProp name="Argument.value">jmeter</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="summaryOnly" elementType="Argument">
@@ -1938,17 +1938,17 @@ vars.put(&quot;randomPLPAuthToken&quot;, randomPLPAuthToken);</stringProp>
             </elementProp>
             <elementProp name="percentiles" elementType="Argument">
               <stringProp name="Argument.name">percentiles</stringProp>
-              <stringProp name="Argument.value">90;95;99</stringProp>
+              <stringProp name="Argument.value">50;90;95;99</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="testTitle" elementType="Argument">
               <stringProp name="Argument.name">testTitle</stringProp>
-              <stringProp name="Argument.value">Grafana_Validation</stringProp>
+              <stringProp name="Argument.value">Jenkins build #${__P(BUILD_NUMBER, N/A)} ${__P(BUILD_URL, build url N/A)} with ${__groovy(import org.apache.jmeter.services.FileServer; def scriptName = FileServer.getFileServer().getScriptName(); return scriptName,)}, scenario with ${__P(THREADS,N/A)} users, ${__P(RAMPUP_PERIOD,N/A)} sec rampup was</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="eventTags" elementType="Argument">
               <stringProp name="Argument.name">eventTags</stringProp>
-              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.value">scenario ${__groovy(import org.apache.jmeter.services.FileServer; def scriptName = FileServer.getFileServer().getScriptName(); return scriptName,)},${__P(THREADS,N/A)} users, ${__P(RAMPUP_PERIOD, N/A)} sec rampup, Jenkins build #${__P(BUILD_NUMBER, N/A)}${__P(ADDITIONAL_TAGS, )</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
